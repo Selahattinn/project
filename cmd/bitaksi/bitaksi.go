@@ -8,8 +8,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/Selahattinn/bitaksi/pkg/server"
-	"github.com/Selahattinn/bitaksi/pkg/version"
+	"github.com/Selahattinn/bitaksi/internal/server"
+	"github.com/Selahattinn/bitaksi/internal/version"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
 )

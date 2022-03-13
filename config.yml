@@ -1,1 +1,6 @@
 host: :8080
+database:
+    addr: localhost
+    port: 27017
+    username: bitaksi
+    password: bitaksi
