@@ -2,7 +2,6 @@ package user
 
 import (
 	"context"
-	"fmt"
 
 	model "github.com/Selahattinn/bitaksi/internal/models"
 	"go.mongodb.org/mongo-driver/bson"
@@ -39,13 +38,10 @@ func (r *MongoRepository) GetUser(email string) (*model.User, error) {
 }
 
 func (r *MongoRepository) CreateUser(user *model.User) (*model.User, error) {
-	result, err := r.collection.InsertOne(context.TODO(), bson.M{"email": user.Email})
+	_, err := r.collection.InsertOne(context.TODO(), user)
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Println(result.InsertedID)
-	// convert result to model.User
 
 	return user, nil
 
