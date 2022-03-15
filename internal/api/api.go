@@ -25,7 +25,7 @@ func (a *API) setupRoutes(app *fiber.App) {
 // userRoutes defines Users routes
 func (a *API) userRoutes(app *fiber.App) {
 	route := app.Group("/api/v1/users")
-	route.Get("/", a.GetUsers)
+	route.Post("/", a.GetUsers)
 	//route.Get("/:id", GetUser)
-	//route.Post("/", CreateUser)
+	route.Put("/", a.CreateUsers)
 }

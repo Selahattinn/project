@@ -3,16 +3,18 @@ package repository
 import (
 	"context"
 
+	"github.com/Selahattinn/bitaksi/internal/repository/user"
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
-// MySQL Repository defines the MySQL implementation of Repository interface
+// MongoRepository defines the Mongo implementation of Repository interface
 type MongoRepository struct {
-	cfg    *MongoConfig
-	client *mongo.Client
+	cfg       *MongoConfig
+	client    *mongo.Client
+	usersRepo user.Repository
 }
 
 type MongoConfig struct {
@@ -45,10 +47,11 @@ func NewMongoRepository(cfg *MongoConfig) (*MongoRepository, error) {
 	if err != nil {
 		return nil, err
 	}
-
+	userRepo := user.NewMongoRepository(client)
 	return &MongoRepository{
-		cfg:    cfg,
-		client: client,
+		cfg:       cfg,
+		client:    client,
+		usersRepo: userRepo,
 	}, nil
 }
 
@@ -58,4 +61,9 @@ func (r *MongoRepository) Shutdown() {
 	if err != nil {
 		logrus.Fatal(err)
 	}
+}
+
+// GetUserRepository gets the user repository
+func (r *MongoRepository) GetUserRepository() user.Repository {
+	return r.usersRepo
 }
